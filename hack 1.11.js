@@ -62,6 +62,8 @@ let hack = {
 		lrSpd: 3,
 		udSpd: 3,
 		get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
+        get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
+        get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
 		multSpdIsOn: false,
 		modeIsOn: false,
 		ghost1: false,
@@ -338,7 +340,7 @@ function scrActivate() {
 			o.push(`${i}: ${hack.vars[i]}`)
 		}
 		document.getElementById("someData").innerHTML = o.join('<br>');
-	}, hack.vars.inter);
+	}, 100);
 	document.body.insertAdjacentHTML("beforebegin", `
 <div id="someData" style="display:inherit;width: 100%; position: fixed;top: 25px;left: 0px;width: auto;height: auto; text-align: left; font-size: 14px; background: rgb(0, 0, 0); color: rgb(255, 255, 255); opacity: 0.7; padding: 2px 2px; display: inherit;"></div>
 `)

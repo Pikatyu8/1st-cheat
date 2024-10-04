@@ -1,39 +1,38 @@
 let hack = {
-	keyBindings: {
-		isCPressed: false,
-		cTimer: null
-	},
-	bindKeys: function() {
-		document.addEventListener('keydown', function(event) {
-			if (event.key.toLowerCase() === 'c') {
-				hack.keyBindings.isCPressed = true;
-				if (!hack.keyBindings.cTimer) {
-					hack.keyBindings.cTimer = setTimeout(() => {
-						hack.keyBindings.isCPressed = false;
-						hack.keyBindings.cTimer = null;
-					}, 250);
-				}
-			}
-		});
+    keyBindings: {
+        isCPressed: false,
+        cTimer: null
+},
+    bindKeys: function() {
+        document.addEventListener('keydown', function(event) {
+            if (event.key.toLowerCase() === 'c') {
+                hack.keyBindings.isCPressed = true;
+                if (!hack.keyBindings.cTimer) {
+                    hack.keyBindings.cTimer = setTimeout(() => {
+                        hack.keyBindings.isCPressed = false;
+                        hack.keyBindings.cTimer = null;
+                    }, 250);
+                }
+            }
+        });
 
-		document.addEventListener('keyup', function(event) {
-			if (event.key.toLowerCase() === 'c') {
-				hack.keyBindings.isCPressed = false;
-				if (hack.keyBindings.cTimer) {
-					clearTimeout(hack.keyBindings.cTimer);
-					hack.keyBindings.cTimer = null;
-				}
-			}
-		});
-	},
+    document.addEventListener('keyup', function(event) {
+        if (event.key.toLowerCase() === 'c') {
+            hack.keyBindings.isCPressed = false;
+            if (hack.keyBindings.cTimer) {
+                clearTimeout(hack.keyBindings.cTimer);
+                hack.keyBindings.cTimer = null;
+            }
+        }
+    });
+},
 
-	playerDirection: {
-		lastHorizontalDirection: 0,
-		lastDashTime: 0,
-		isDashing: false,
-		dashEndTime: 0
-	},
-	getters: {
+    playerDirection: {
+        lastHorizontalDirection: 0,
+        lastDashTime: 0,
+        isDashing: false,
+        dashEndTime: 0},
+    getters: {
         get client() { return temp1.o[1].exports; },
         get gf() { return temp1.o[5].exports; },
         get gp() { return temp1.o[6].exports; },
@@ -63,8 +62,8 @@ let hack = {
 		lrSpd: 3,
 		udSpd: 3,
 		get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
-		get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0] * 100) / 100},
-		get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1] * 100) / 100},
+        get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
+        get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
 		multSpdIsOn: false,
 		modeIsOn: false,
 		ghost1: false,
@@ -144,11 +143,9 @@ let hack = {
 				hack.getters.velocity[0] = 0
 				hack.getters.velocity[1] = 0
 				hack.functions.immEnable()
-				hack.vars.ghost2 = true
+                hack.vars.ghost2 = true
 				hack.vars.isPlayerDead = true
-				if (hack.vars.multSpdIsOn) {
-					hack.functions.multSpdDisable()
-				}
+				if (hack.vars.multSpdIsOn) {hack.functions.multSpdDisable()}
 				hack.getters.rGho.fire(hack.getters.network.gsSocket)
 				hack.getters.mode.md.mobile() && hack.getters.mode.setupTouchButtons(!0)
 			}
@@ -194,10 +191,18 @@ let hack = {
 		}
 	},
 	logFuncs: {
-		logModeIsOn: () => {console.log('modeIsOn:', hack.vars.modeIsOn)},
-		logImmIsOn: () => {console.log('immIsOn:', hack.vars.immIsOn)},
-		logSpd: () => {console.log('speed:', ((hack.vars.lrSpd + hack.vars.udSpd) / 2) * hack.vars.mult)},
-		logMMGIsOn: () => {console.log('MMGIsOn:', hack.vars.MMGIsOn)},
+		logModeIsOn: () => {
+			console.log('modeIsOn:', hack.vars.modeIsOn)
+		},
+		logImmIsOn: () => {
+			console.log('immIsOn:', hack.vars.immIsOn)
+		},
+		logSpd: () => {
+			console.log('speed:', ((hack.vars.lrSpd + hack.vars.udSpd) / 2) * hack.vars.mult)
+		},
+		logMMGIsOn: () => {
+			console.log('MMGIsOn:', hack.vars.MMGIsOn)
+		},
 		logAll: () => {
 			hack.logFuncs.logModeIsOn()
 			hack.logFuncs.logImmIsOn()
@@ -323,7 +328,6 @@ document.body.onkeydown = (event) => {
 			break;
 	}
 };
-
 function scrActivate() {
 	Object.defineProperty(hack.vars, 'inter', {
 		enumerable: false
@@ -350,88 +354,99 @@ function scrActivate() {
 	document.getElementById('mapCredits').style.opacity = 0.7
 }
 hack.bindKeys()
+
+
+
 hack.getters.mode.playerMovement = function(e) {
-	const currentTime = Date.now();
-	const dashCooldown = 600; // Интервал между рывками в миллисекундах
-	const dashDuration = 50; // Продолжительность рывка в миллисекундах
+    const currentTime = Date.now();
+    const dashCooldown = 600; // Интервал между рывками в миллисекундах
+    const dashDistance = 2.5; // Желаемая длина рывка в игровых единицах
+    const dashSpeed = 35; // Скорость рывка в единицах в секунду
 
-	// Обновляем последнее направление движения
-	if (hack.getters.mode.moveLeft) {
-		hack.playerDirection.lastHorizontalDirection = -1;
-	} else if (hack.getters.mode.moveRight) {
-		hack.playerDirection.lastHorizontalDirection = 1;
-	}
+    // Инициализируем объект hack.playerDirection, если он не существует
+    if (!hack.playerDirection) {
+        hack.playerDirection = {};
+    }
 
-	// Проверяем, можно ли начать новый рывок
-	if (hack.keyBindings.isCPressed && currentTime - hack.playerDirection.lastDashTime >= dashCooldown && !hack.playerDirection.isDashing) {
-		hack.playerDirection.lastDashTime = currentTime;
-		hack.playerDirection.dashEndTime = currentTime + dashDuration;
-		hack.playerDirection.isDashing = true;
-	}
+    // Обновляем последнее направление движения
+    if (hack.getters.mode.moveLeft) {
+        hack.playerDirection.lastHorizontalDirection = -1;
+    } else if (hack.getters.mode.moveRight) {
+        hack.playerDirection.lastHorizontalDirection = 1;
+    }
 
-	// Проверяем, продолжается ли рывок
-	if (hack.playerDirection.isDashing) {
-		if (currentTime < hack.playerDirection.dashEndTime) {
-			// Выполняем рывок
-			hack.getters.mode.player.gpData.p.velocity[0] = 35 * hack.playerDirection.lastHorizontalDirection;
-			hack.getters.mode.player.gpData.p.velocity[1] = 0
-		} else {
-			// Завершаем рывок
-			hack.playerDirection.isDashing = false;
-		}
-	} else {
-		// Обычное движение
-		if (hack.getters.mode.moveRight) {
-			hack.getters.mode.player.gpData.p.velocity[0] = hack.vars.lrSpd * hack.vars.mult;
-		} else if (hack.getters.mode.moveLeft) {
-			hack.getters.mode.player.gpData.p.velocity[0] = -hack.vars.lrSpd * hack.vars.mult;
-		} else {
-			hack.getters.mode.player.gpData.p.velocity[0] = 0;
-		}
-	}
-	if (hack.getters.mode.moveUp)
-		for (var t = hack.getters.me.getX(),
-				n = hack.getters.me.getY(),
-				r = t - 15, i = 0; i < 12; i++) {
-			var o = r + i * (30 / 11),
-				s = n + 50 - 1,
-				a = r + i * (30 / 11),
-				u = 50 + s;
-			if (hack.getters.ray.from = [hack.getters.physics.xAxis(o, 0),
-					hack.getters.physics.yAxis(s, 0)
-				], hack.getters.ray.to = [hack.getters.physics.xAxis(a, 0),
-					hack.getters.physics.yAxis(u, 0)
-				], enableRay && (o = hack.getters.graphics.createLine({
-					from: {
-						x: o,
-						y: s
-					},
-					to: {
-						x: a,
-						y: u
-					}
-				}), hack.getters.gp.gWorld.mid.addChild(o)),
-				hack.getters.ray.update(),
-				hack.getters.ray.result.reset(),
-				hack.getters.ray.hitPoint = [Infinity, Infinity],
-				hack.getters.gp.pWorld.raycast(hack.getters.ray.result, hack.getters.ray)) {
-				hack.getters.ray.result.getHitPoint(hack.getters.ray.hitPoint, hack.getters.ray);
-				s = hack.getters.ray.result.getHitDistance(hack.getters.ray);
-				if ((hack.getters.ray.result.shape.ref.getCollision()) && (s < 0.05)) {
-					hack.getters.velocity[1] = 8;
-					break
-				}
-			}
-		}
-	if (hack.vars.ghost1 || hack.vars.ghost2) {
-		if (hack.getters.mode.moveUp) {
-			hack.getters.velocity[1] = hack.vars.udSpd * hack.vars.mult
-		}
-		if (hack.getters.mode.moveDown) {
-			hack.getters.velocity[1] = -hack.vars.udSpd * hack.vars.mult
-		}
-		if (!hack.getters.mode.moveUp && !hack.getters.mode.moveDown) {
-			hack.getters.velocity[1] = 0
-		}
-	}
-}
+    // Проверяем, можно ли начать новый рывок
+    if (hack.keyBindings.isCPressed && currentTime - (hack.playerDirection.lastDashTime || 0) >= dashCooldown && !hack.playerDirection.isDashing) {
+        hack.playerDirection.lastDashTime = currentTime;
+        hack.playerDirection.dashStartPosition = hack.getters.me.getX();
+        hack.playerDirection.isDashing = true;
+        hack.playerDirection.dashVelocity = dashSpeed * hack.playerDirection.lastHorizontalDirection;
+
+        // Рассчитываем длительность рывка в миллисекундах
+        hack.playerDirection.dashDuration = (dashDistance / dashSpeed) * 1000;
+        hack.playerDirection.dashEndTime = currentTime + hack.playerDirection.dashDuration;
+    }
+
+    // Проверяем, продолжается ли рывок
+    if (hack.playerDirection.isDashing) {
+        // Выполняем рывок
+        hack.getters.mode.player.gpData.p.velocity[0] = hack.playerDirection.dashVelocity;
+        hack.getters.mode.player.gpData.p.velocity[1] = 0;
+
+        // Проверяем, истекло ли время рывка
+        if (currentTime >= hack.playerDirection.dashEndTime) {
+            // Завершаем рывок
+            hack.playerDirection.isDashing = false;
+            hack.getters.mode.player.gpData.p.velocity[0] = 0;
+        }
+
+        // Останавливаем дальнейшее выполнение функции во время рывка
+        return;
+    } else {
+        // Обычное движение
+        if (hack.getters.mode.moveRight) {
+            hack.getters.mode.player.gpData.p.velocity[0] = hack.vars.lrSpd * hack.vars.mult;
+        } else if (hack.getters.mode.moveLeft) {
+            hack.getters.mode.player.gpData.p.velocity[0] = -hack.vars.lrSpd * hack.vars.mult;
+        } else {
+            hack.getters.mode.player.gpData.p.velocity[0] = 0;
+        }
+    }
+    if (hack.getters.mode.moveUp) {
+        for (var t = hack.getters.me.getX(), n = hack.getters.me.getY(), r = t - 15, i = 0; i < 12; i++) {
+            var o = r + i * (30 / 11),
+                s = n + 50 - 1,
+                a = r + i * (30 / 11),
+                u = 50 + s;
+            if (hack.getters.ray.from = [hack.getters.physics.xAxis(o, 0), hack.getters.physics.yAxis(s, 0)],
+                hack.getters.ray.to = [hack.getters.physics.xAxis(a, 0), hack.getters.physics.yAxis(u, 0)],
+                enableRay && (o = hack.getters.graphics.createLine({
+                    from: { x: o, y: s },
+                    to: { x: a, y: u }
+                }), hack.getters.gp.gWorld.mid.addChild(o)),
+                hack.getters.ray.update(),
+                hack.getters.ray.result.reset(),
+                hack.getters.ray.hitPoint = [Infinity, Infinity],
+                hack.getters.gp.pWorld.raycast(hack.getters.ray.result, hack.getters.ray)) {
+                hack.getters.ray.result.getHitPoint(hack.getters.ray.hitPoint, hack.getters.ray);
+                s = hack.getters.ray.result.getHitDistance(hack.getters.ray);
+                if ((hack.getters.ray.result.shape.ref.getCollision()) && (s < 0.05)) {
+                    hack.getters.velocity[1] = 8;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (hack.vars.ghost1 || hack.vars.ghost2) {
+        if (hack.getters.mode.moveUp) {
+            hack.getters.velocity[1] = hack.vars.udSpd * hack.vars.mult;
+        }
+        if (hack.getters.mode.moveDown) {
+            hack.getters.velocity[1] = -hack.vars.udSpd * hack.vars.mult;
+        }
+        if (!hack.getters.mode.moveUp && !hack.getters.mode.moveDown) {
+            hack.getters.velocity[1] = 0;
+        }
+    }
+};

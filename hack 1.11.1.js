@@ -1,4 +1,4 @@
-let hack = {
+hack = {
     keyBindings: {
         isCPressed: false,
         cTimer: null,
@@ -68,13 +68,14 @@ let hack = {
 		mult: 1,
 		lrSpd: 3,
 		udSpd: 3,
-        get currentPosX() {return Math.round(hack.getters.me.p.position[0]*100)/100},
-        get currentPosY() {return Math.round(hack.getters.me.p.position[1]*100)/100},
-		'------':'------',
-	    get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
+        'POSITION INFO ':'-----------------------',
+        get currentPosX() {return Math.round(hack.getters.me.getX()*100)/100},
+        get currentPosY() {return Math.round(hack.getters.me.getY()*100)/100},
+		'SPEED INFO ':'--------------------------',
+        get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
         get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
         get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
-		'------':'------',
+		'SCRIPT VALUES ':'----------------------',
 		multSpdIsOn: false,
 		modeIsOn: false,
 		immIsOn: false,
@@ -84,7 +85,7 @@ let hack = {
         ghost2: false,
 		delay: 1000,
 		inter: 250,
-        '------':'------',
+        'IN GAME VALUES ':'--------------------',
         isPlayerDead: false,
 		get mass() {return hack.getters.me.p.mass},
 		get collisionResponse() {return hack.getters.me.p.collisionResponse}

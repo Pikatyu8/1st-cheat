@@ -68,21 +68,24 @@ let hack = {
 		mult: 1,
 		lrSpd: 3,
 		udSpd: 3,
-		get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
-    get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
-    get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
-    get currentPosX() {return Math.round(hack.getters.me.p.position[0]*100)/100},
-    get currentPosY() {return Math.round(hack.getters.me.p.position[1]*100)/100},
+        get currentPosX() {return Math.round(hack.getters.me.p.position[0]*100)/100},
+        get currentPosY() {return Math.round(hack.getters.me.p.position[1]*100)/100},
+		'------':'------',
+	    get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
+        get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
+        get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
+		'------':'------',
 		multSpdIsOn: false,
 		modeIsOn: false,
-		ghost1: false,
-		ghost2: false,
 		immIsOn: false,
 		MMGIsOn: false,
-		isPlayerDead: false,
 		interTpToOtherIsOn: false,
+		ghost1: false,
+        ghost2: false,
 		delay: 1000,
 		inter: 250,
+        '------':'------',
+        isPlayerDead: false,
 		get mass() {return hack.getters.me.p.mass},
 		get collisionResponse() {return hack.getters.me.p.collisionResponse}
 	},
@@ -151,7 +154,7 @@ let hack = {
 				hack.getters.me.p.gravityScale = 0
 				hack.getters.velocity[0] = 0
 				hack.getters.velocity[1] = 0
-				hack.functions.immEnable()
+				hack.getters.me.me = void 0
                 hack.vars.ghost2 = true
 				hack.vars.isPlayerDead = true
 				if (hack.vars.multSpdIsOn) {hack.functions.multSpdDisable()}
@@ -231,24 +234,12 @@ let hack = {
 	}
 }
 function scrActivate() {
-	Object.defineProperty(hack.vars, 'inter', {
-		enumerable: false
-	});
-  Object.defineProperty(hack.vars, 'delay', {
-		enumerable: false
-	});
-  Object.defineProperty(hack.vars, 'mult', {
-		enumerable: false
-	});
-  Object.defineProperty(hack.vars, 'lrSpd', {
-		enumerable: false
-	});
-  Object.defineProperty(hack.vars, 'udSpd', {
-		enumerable: false
-	});
-  Object.defineProperty(hack.vars, 'ghost2', {
-		enumerable: false
-	});
+    Object.defineProperty(hack.vars, 'inter', {enumerable: false});
+    Object.defineProperty(hack.vars, 'delay', {enumerable: false});
+    Object.defineProperty(hack.vars, 'mult', {enumerable: false});
+    Object.defineProperty(hack.vars, 'lrSpd', {enumerable: false});
+    Object.defineProperty(hack.vars, 'udSpd', {enumerable: false});
+    Object.defineProperty(hack.vars, 'ghost2', {enumerable: false});
 	hack.functions.MMGEnable()
 	hack.functions.MMGDisable()
 	setInterval(() => {
@@ -310,6 +301,7 @@ hack.getters.mode.onChangeMap = function(e) {
 							document.getElementById("startTime").style.display = "none")
 				}, 1e3)
 		}, 0)
+    hack.getters.me.me = true
 	if (hack.vars.modeIsOn) {
 		hack.functions.godModeEnable()
 	} else {

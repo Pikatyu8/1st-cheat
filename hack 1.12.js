@@ -462,15 +462,13 @@ function isGrounded() {
 }
 if (isGrounded()) {
     hack.playerDirection.jumps = 0;
-    if (hack.keyBindings.isZPressed) {
+    if (hack.keyBindings.isZPressed || hack.getters.mode.moveUp) {
         hack.getters.velocity[1] = 8;
-        console.log('jumpin');
         hack.keyBindings.isZPressed = false;
     }
 } else if (!isGrounded() && hack.playerDirection.jumps < 1 && hack.keyBindings.isZPressed) {
     hack.getters.velocity[1] = 8;
     hack.playerDirection.jumps++;
-    console.log('tryin to 2 jumpin');
     hack.keyBindings.isZPressed = false;
 }
     if (hack.vars.ghost1 || hack.vars.ghost2) {

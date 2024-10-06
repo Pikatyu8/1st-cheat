@@ -414,7 +414,7 @@ hack.getters.mode.playerMovement = function(e) {
     const currentTime = Date.now();
     const dashCooldown = 600; 
     const dashDistance = 2.5; 
-    const dashSpeed = 35; 
+    const dashSpeed = 25; 
     if (hack.getters.mode.moveLeft) {
         hack.playerDirection.lastHorizontalDirection = -1;
     } else if (hack.getters.mode.moveRight) {

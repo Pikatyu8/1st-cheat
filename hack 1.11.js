@@ -361,7 +361,7 @@ hack.getters.mode.playerMovement = function(e) {
     const currentTime = Date.now();
     const dashCooldown = 600; // Интервал между рывками в миллисекундах
     const dashDistance = 2.5; // Желаемая длина рывка в игровых единицах
-    const dashSpeed = 35; // Скорость рывка в единицах в секунду
+    const dashSpeed = 25; // Скорость рывка в единицах в секунду
 
     // Инициализируем объект hack.playerDirection, если он не существует
     if (!hack.playerDirection) {

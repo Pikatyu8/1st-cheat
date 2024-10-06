@@ -44,6 +44,7 @@ hack = {
         zTimer: null,
         zCooldown: 100 
     },
+  playerDirection: {lastHorizontalDirection: 1},
     bindKeys: function() {
         document.addEventListener('keydown', function(event) {
             if (event.key.toLowerCase() === 'c') {
@@ -414,9 +415,6 @@ hack.getters.mode.playerMovement = function(e) {
     const dashCooldown = 600; 
     const dashDistance = 2.5; 
     const dashSpeed = 35; 
-    if (!hack.playerDirection) {
-        hack.playerDirection.lastHorizontalDirection = 1;
-    }
     if (hack.getters.mode.moveLeft) {
         hack.playerDirection.lastHorizontalDirection = -1;
     } else if (hack.getters.mode.moveRight) {

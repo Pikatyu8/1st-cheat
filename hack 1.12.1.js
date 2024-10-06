@@ -272,7 +272,7 @@ hack = {
 		}
 	}
 }
-}
+
 function scrActivate() {
     Object.defineProperty(hack.vars, 'inter', {enumerable: false});
     Object.defineProperty(hack.vars, 'delay', {enumerable: false});
@@ -496,4 +496,5 @@ if (isGrounded()) {
             hack.getters.velocity[1] = 0;
         }
     }
+}
 }

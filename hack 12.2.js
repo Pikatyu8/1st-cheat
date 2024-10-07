@@ -176,7 +176,7 @@ hack = {
 				interTpToOther = setInterval(() => {
 					hack.getters.me.p.position[0] = hack.getters.otherPlayers[playerIndex].gpData.p.position[0]
 					hack.getters.me.p.position[1] = hack.getters.otherPlayers[playerIndex].gpData.p.position[1]
-				}, hack.vars.inter)
+				}, 100/6)
 				hack.vars.interTpToOtherIsOn = true
 			} else if (!playerIndex) {
 				try {
@@ -273,17 +273,7 @@ hack = {
 		}
 	}
 }
-
-function scrActivate() {
-    Object.defineProperty(hack.vars, 'inter', {enumerable: false});
-    Object.defineProperty(hack.vars, 'delay', {enumerable: false});
-    Object.defineProperty(hack.vars, 'mult', {enumerable: false});
-    Object.defineProperty(hack.vars, 'lrSpd', {enumerable: false});
-    Object.defineProperty(hack.vars, 'udSpd', {enumerable: false});
-    Object.defineProperty(hack.vars, 'ghost2', {enumerable: false});
-	hack.functions.MMGEnable()
-	hack.functions.MMGDisable()
-	setInterval(() => {
+setInterval(() => {
 		o = []
 		for (let i in hack.vars) {
 			o.push(`${i}: ${hack.vars[i]}`)
@@ -293,6 +283,15 @@ function scrActivate() {
 	document.body.insertAdjacentHTML("beforebegin", `
 <div id="someData" style="display:inherit;width: 100%; position: fixed;top: 25px;left: 0px;width: auto;height: auto; text-align: left; font-size: 14px; background: rgb(0, 0, 0); color: rgb(255, 255, 255); opacity: 0.7; padding: 2px 2px; display: inherit;"></div>
 `)
+hack.functions.MMGEnable()
+hack.functions.MMGDisable()
+function scrActivate() {
+    Object.defineProperty(hack.vars, 'inter', {enumerable: false});
+    Object.defineProperty(hack.vars, 'delay', {enumerable: false});
+    Object.defineProperty(hack.vars, 'mult', {enumerable: false});
+    Object.defineProperty(hack.vars, 'lrSpd', {enumerable: false});
+    Object.defineProperty(hack.vars, 'udSpd', {enumerable: false});
+    Object.defineProperty(hack.vars, 'ghost2', {enumerable: false});
 	document.getElementById('timer').style.background = 'rgb(0, 0, 0)';
 	document.getElementById('timer').style.color = 'rgb(255, 255, 255)';
 	document.getElementById('mapCredits').style.background = 'rgb(0, 0, 0)';

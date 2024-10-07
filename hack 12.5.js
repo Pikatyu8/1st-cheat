@@ -105,7 +105,7 @@ function activateMain(temp1) {
       ghost1: false,
       ghost2: false,
       isPlayerDead: false,
-      'PLAYER MOVEMENT VALUES ':'----------------------',
+      'MOVEMENT VALUES ':'---------------',
 
     },
     suppFuncs: {

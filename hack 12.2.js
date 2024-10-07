@@ -7,7 +7,6 @@
 // @match        http://brofist.io/modes/twoPlayer/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=brofist.io
 // @grant        none
-// @run-at       document-start
 // ==/UserScript==
 
 let temp1 = {};

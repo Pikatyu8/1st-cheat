@@ -91,7 +91,7 @@ function activateMain(temp1) {
       'POSITION INFO ':'-----------------------',
       get currentPosX() {return Math.round(hack.getters.me.getX()*100)/100},
       get currentPosY() {return Math.round(hack.getters.me.getY()*100)/100},
-	  'SPEED INFO ':'--------------------------',
+	  'SPEED INFO ':'----------------------------',
       get totalSpd() {return (((this.lrSpd + this.udSpd) / 2) * this.mult)},
       get currentSpdX() {return Math.round(hack.getters.me.p.velocity[0]*100)/100},
       get currentSpdY() {return Math.round(hack.getters.me.p.velocity[1]*100)/100},
@@ -104,6 +104,8 @@ function activateMain(temp1) {
       ghost1: false,
       ghost2: false,
       isPlayerDead: false,
+      'PLAYER MOVEMENT VALUES ':'----------------------',
+
     },
     suppFuncs: {
       getMult: () => {

@@ -404,7 +404,7 @@ document.body.onkeydown = (event) => {
 };
 hack.getters.mode.playerMovement = function(e) {
     const currentTime = Date.now();
-    const dashCooldown = 100; 
+    const dashCooldown = 250; 
     const dashDistance = 2.5; 
     const dashSpeed = 25; 
     if (hack.getters.mode.moveLeft) {

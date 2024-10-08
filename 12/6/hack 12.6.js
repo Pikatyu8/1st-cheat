@@ -359,6 +359,12 @@ function activateMain(temp1) {
           hack.functions.multSpdDisable();
         }
         break;
+      case 33:
+        hack.getters.me.p.gravityScale = -1
+        break
+      case 34:
+        hack.getters.me.p.gravityScale = 1
+        break
       case 36:
         hack.functions.tpSpawn();
         break;

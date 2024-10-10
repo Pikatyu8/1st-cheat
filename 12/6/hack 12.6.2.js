@@ -345,6 +345,7 @@ function activateMain(temp1) {
           hack.getters.me.p.gravityScale = -1
           hack.getters.me.p.angle = Math.PI
       } else if ((isGrounded() && hack.getters.me.p.gravityScale == -1) || hack.vars.modeIsOn) {
+          if (hack.vars.modeIsOn) {hack.functions.godModeDisable()}
           hack.getters.me.p.gravityScale = 1
           hack.getters.me.p.angle = 0
         }

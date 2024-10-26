@@ -312,22 +312,12 @@ function activateMain(temp1) {
           hack.functions.multSpdDisable()
         }
         break
-      case 36:
-        hack.functions.tpSpawn()
-        break
-      case 35:
-        hack.functions.tpDoor()
-        break
       case 192:
       case 190:
         if (hack.vars.modeIsOn) {
           hack.suppFuncs.setMult()
           hack.logFuncs.logSpd()
         }
-        break
-      case 45:
-      case 96:
-        hack.functions.setTpToOther(hack.suppFuncs.getIndexByName(prompt('Введите корректный никнейм. Чтобы выйти из интервала нажмите Esc.')))
         break
     }
   }

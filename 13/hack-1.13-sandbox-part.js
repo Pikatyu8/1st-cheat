@@ -104,7 +104,6 @@ function activateMain(temp1) {
       multSpdIsOn: false,
       modeIsOn: false,
       ghost1: false,
-      isPlayerDead: false,
       'MOVEMENT VALUES ': '---------------'
     },
     suppFuncs: {
@@ -218,7 +217,7 @@ function activateMain(temp1) {
   let scrActivate = function () {
     hack.getters.client.loopFunctions[2].timeOut = 100 / 6
     hack.getters.client.loopFunctions[3].timeOut = 0
-    newMovement()
+    oldMovement()
     Object.defineProperty(hack.vars, 'mult', { enumerable: false })
     Object.defineProperty(hack.vars, 'lrSpd', { enumerable: false })
     Object.defineProperty(hack.vars, 'udSpd', { enumerable: false })

@@ -318,10 +318,6 @@ function activateMain(temp1) {
           hack.logFuncs.logSpd()
         }
         break
-      case 45:
-      case 96:
-        hack.functions.setTpToOther(hack.suppFuncs.getIndexByName(prompt('Введите корректный никнейм. Чтобы выйти из интервала нажмите Esc.')))
-        break
     }
   }
 

@@ -305,12 +305,6 @@ function activateMain(temp1) {
           hack.functions.multSpdDisable()
         }
         break
-      case 36:
-        hack.functions.tpSpawn()
-        break
-      case 35:
-        hack.functions.tpDoor()
-        break
       case 192:
       case 190:
         if (hack.vars.modeIsOn) {
